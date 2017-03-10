@@ -73,7 +73,7 @@ struct JitInterfaceCallbacks
     int (__stdcall * getBoxHelper)(void * thisHandle, CorInfoException** ppException, void* cls);
     int (__stdcall * getUnBoxHelper)(void * thisHandle, CorInfoException** ppException, void* cls);
     bool (__stdcall * getReadyToRunHelper)(void * thisHandle, CorInfoException** ppException, void* pResolvedToken, void* pGenericLookupKind, int id, void* pLookup);
-    void (__stdcall * getReadyToRunDelegateCtorHelper)(void * thisHandle, CorInfoException** ppException, void* pTargetMethod, void* delegateType, void* pLookup);
+    void (__stdcall * getReadyToRunDelegateCtorHelper)(void * thisHandle, CorInfoException** ppException, void* pTargetMethod, void* delegateType, void* pLookup, bool virtualDispatch);
     const char* (__stdcall * getHelperName)(void * thisHandle, CorInfoException** ppException, int helpFunc);
     int (__stdcall * initClass)(void * thisHandle, CorInfoException** ppException, void* field, void* method, void* context, bool speculative);
     void (__stdcall * classMustBeLoadedBeforeCodeIsRun)(void * thisHandle, CorInfoException** ppException, void* cls);

@@ -138,7 +138,7 @@ namespace Internal.JitInterface
         [UnmanagedFunctionPointerAttribute(CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.I1)]delegate bool __getReadyToRunHelper(IntPtr _this, IntPtr* ppException, ref CORINFO_RESOLVED_TOKEN pResolvedToken, ref CORINFO_LOOKUP_KIND pGenericLookupKind, CorInfoHelpFunc id, ref CORINFO_CONST_LOOKUP pLookup);
         [UnmanagedFunctionPointerAttribute(CallingConvention.StdCall)]
-        delegate void __getReadyToRunDelegateCtorHelper(IntPtr _this, IntPtr* ppException, ref CORINFO_RESOLVED_TOKEN pTargetMethod, CORINFO_CLASS_STRUCT_* delegateType, ref CORINFO_CONST_LOOKUP pLookup);
+        delegate void __getReadyToRunDelegateCtorHelper(IntPtr _this, IntPtr* ppException, ref CORINFO_RESOLVED_TOKEN pTargetMethod, CORINFO_CLASS_STRUCT_* delegateType, ref CORINFO_CONST_LOOKUP pLookup, bool virtualDispatch);
         [UnmanagedFunctionPointerAttribute(CallingConvention.StdCall)]
         delegate byte* __getHelperName(IntPtr _this, IntPtr* ppException, CorInfoHelpFunc helpFunc);
         [UnmanagedFunctionPointerAttribute(CallingConvention.StdCall)]
@@ -1212,12 +1212,12 @@ namespace Internal.JitInterface
             }
         }
 
-        static void _getReadyToRunDelegateCtorHelper(IntPtr thisHandle, IntPtr* ppException, ref CORINFO_RESOLVED_TOKEN pTargetMethod, CORINFO_CLASS_STRUCT_* delegateType, ref CORINFO_CONST_LOOKUP pLookup)
+        static void _getReadyToRunDelegateCtorHelper(IntPtr thisHandle, IntPtr* ppException, ref CORINFO_RESOLVED_TOKEN pTargetMethod, CORINFO_CLASS_STRUCT_* delegateType, ref CORINFO_CONST_LOOKUP pLookup, bool virtualDispatch)
         {
             var _this = GetThis(thisHandle);
             try
             {
-                _this.getReadyToRunDelegateCtorHelper(ref pTargetMethod, delegateType, ref pLookup);
+                _this.getReadyToRunDelegateCtorHelper(ref pTargetMethod, delegateType, ref pLookup, virtualDispatch);
             }
             catch (Exception ex)
             {

@@ -1407,14 +1407,14 @@ namespace Internal.JitInterface
             return true;
         }
 
-        private void getReadyToRunDelegateCtorHelper(ref CORINFO_RESOLVED_TOKEN pTargetMethod, CORINFO_CLASS_STRUCT_* delegateType, ref CORINFO_CONST_LOOKUP pLookup)
+        private void getReadyToRunDelegateCtorHelper(ref CORINFO_RESOLVED_TOKEN pTargetMethod, CORINFO_CLASS_STRUCT_* delegateType, ref CORINFO_CONST_LOOKUP pLookup, bool virtualDispatch)
         {
             MethodDesc method = HandleToObject(pTargetMethod.hMethod);
             TypeDesc type = HandleToObject(delegateType);
 
             // TODO: we need a flag whether to do virtual resolution
 
-            DelegateCreationInfo delegateInfo = _compilation.GetDelegateCtor(type, method, followVirtualDispatch: true);
+            DelegateCreationInfo delegateInfo = _compilation.GetDelegateCtor(type, method, virtualDispatch);
 
             pLookup = CreateConstLookupToSymbol(_compilation.NodeFactory.ReadyToRunHelper(ReadyToRunHelperId.DelegateCtor, delegateInfo));
         }
