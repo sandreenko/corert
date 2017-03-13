@@ -743,10 +743,10 @@ public:
         return _ret;
     }
 
-    virtual void getReadyToRunDelegateCtorHelper(void* pTargetMethod, void* delegateType, void* pLookup)
-    {
+    virtual void getReadyToRunDelegateCtorHelper(void* pTargetMethod, void* delegateType, void* pLookup, bool virtualDispatch)
+	{
         CorInfoException* pException = nullptr;
-        _callbacks->getReadyToRunDelegateCtorHelper(_thisHandle, &pException, pTargetMethod, delegateType, pLookup);
+        _callbacks->getReadyToRunDelegateCtorHelper(_thisHandle, &pException, pTargetMethod, delegateType, pLookup, virtualDispatch);
         if (pException != nullptr)
             throw pException;
     }
